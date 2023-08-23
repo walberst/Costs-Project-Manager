@@ -38,4 +38,4 @@ Contribuições são bem-vindas! Se você encontrar algum problema ou quiser adi
 
 ## Licença
 
-Este projeto está licenciado sob a Licença MIT.
+Este projeto está licenciado sob a [Licença MIT.](https://github.com/walberst/Costs-Project-Manager/blob/main/LICENSE)
