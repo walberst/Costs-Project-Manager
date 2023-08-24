@@ -1,6 +1,6 @@
 # Costs Project Manager
 
-## Overview
+## Visão geral
 
 O Costs Project Manager é um aplicativo de gerenciamento de projetos e custos desenvolvido em ReactJS. Ele permite que os usuários cadastrem projetos, adicionem custos associados e calculem os preços dos serviços utilizados.
 
@@ -16,7 +16,7 @@ O Costs Project Manager é um aplicativo de gerenciamento de projetos e custos d
 1. Clone este repositório em sua máquina local:
 
    ```bash
-   git clone https://github.com/your-user/Costs-Project-Manager.git
+   git clone https://github.com/walberst/Costs-Project-Manager.git
    ```
 
 2. Navegue até a pasta do projeto:
