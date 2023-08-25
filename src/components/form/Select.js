@@ -1,6 +1,6 @@
 import Styles from "./css/Select.module.css";
 
-function Select({ multiple, text, name, handleOnChange, value = 0, options }) {
+function Select({ multiple, text, name, handleOnChange, value, options }) {
   return (
     <div className={Styles.form_control}>
       <label htmlFor={name}>{text && text + ":"}</label>
@@ -9,12 +9,15 @@ function Select({ multiple, text, name, handleOnChange, value = 0, options }) {
         id={name}
         name={name}
         onChange={handleOnChange}
-        value={value}
+        value={value || ""}
       >
-        <option value="0" disabled>
-          Selecione uma categoria
-        </option>
-        {options && options.map((item) => <option>{item}</option>)}
+        <option value="0">Selecione uma categoria</option>
+        {options &&
+          options.map((item) => (
+            <option value={item.id} key={item.id}>
+              {item.name}
+            </option>
+          ))}
       </select>
     </div>
   );
