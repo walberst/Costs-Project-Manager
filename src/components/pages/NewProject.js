@@ -11,7 +11,7 @@ function NewProject() {
     // initialize cost and services
     project.cost = 0;
     project.services = [];
-    const response = await ApiPost({ service: "/projects", data: project });
+    const response = await ApiPost({ service: "projects", data: project });
     console.log(project, response);
     if (response.success) {
       navigate("/projects", {

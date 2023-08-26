@@ -1,6 +1,10 @@
 async function ApiPost({ service, data }) {
   const apiUrl = process.env.REACT_APP_API_URL;
 
+  if (!service.startsWith("/")) {
+    service = `/${service}`;
+  }
+
   const requestOptions = {
     method: "POST",
     headers: {
@@ -16,7 +20,7 @@ async function ApiPost({ service, data }) {
     return { success: true, data: responseData };
   } catch (error) {
     console.error("Error:", error);
-    return { success: false, message: "Erro na requisição" };
+    return { success: false, message: "Erro na requisição: " + error };
   }
 }
 
