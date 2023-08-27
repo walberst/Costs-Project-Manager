@@ -5,7 +5,11 @@ import { BsPencil, BsFillTrashFill } from "react-icons/bs";
 import LinkButton from "../layouts/LinkButton";
 
 function ProjectCard({ id, name, budget, category, handleRemove }) {
-  console.log(category.toLowerCase().replace(/\s+/g, "_"));
+  const remove = (e) => {
+    e.preventDefault();
+    handleRemove(id);
+  };
+
   return (
     <div className={Styles.project_card}>
       <h4>{name}</h4>
@@ -20,7 +24,7 @@ function ProjectCard({ id, name, budget, category, handleRemove }) {
       </p>
       <div className={Styles.project_card_actions}>
         <Link to="/">{<BsPencil />} Editar</Link>
-        <button>
+        <button onClick={remove}>
           <BsFillTrashFill /> Excluir
         </button>
       </div>
