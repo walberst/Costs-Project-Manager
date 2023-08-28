@@ -12,7 +12,6 @@ function NewProject() {
     project.cost = 0;
     project.services = [];
     const response = await ApiPost({ service: "projects", data: project });
-    console.log(project, response);
     if (response.success) {
       navigate("/projects", {
         state: { message: "Projeto criado com sucesso" },

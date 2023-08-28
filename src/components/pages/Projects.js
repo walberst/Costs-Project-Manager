@@ -23,7 +23,7 @@ function Projects() {
   }
 
   async function removeProject(id) {
-    const dataRemove = await ApiDelete({ service: `/projects/${id}` });
+    await ApiDelete({ service: `/projects/${id}` });
     setProjects(projects.filter((project) => project.id !== id));
     setProjectMessage("Projeto removido com sucesso!");
   }
@@ -38,7 +38,7 @@ function Projects() {
     }
 
     fetchCategories();
-  }, []);
+  }, [projectMessage]);
 
   return (
     <div className={Styles.project_container}>
