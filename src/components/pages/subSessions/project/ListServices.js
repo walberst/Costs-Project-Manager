@@ -1,8 +1,7 @@
 import Container from "../../../layouts/Container";
 import ServiceCard from "../../../service/ServiceCard";
 
-function ListServices({ services }) {
-  function removeService() {}
+function ListServices({ services, removeService }) {
   return (
     <>
       <h2>Serviços</h2>

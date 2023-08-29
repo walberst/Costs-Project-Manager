@@ -33,6 +33,28 @@ function Project() {
     fetchProject();
   }, [id]);
 
+  async function removeService(id, cost) {
+    const servicesUpdated = project.services.filter(
+      (service) => service.id !== id
+    );
+
+    const projectUpdated = project;
+    projectUpdated.services = servicesUpdated;
+    projectUpdated.cost = parseFloat(projectUpdated.cost) - parseFloat(cost);
+
+    const dataUpdate = await ApiPatch({
+      service: `projects/${projectUpdated.id}`,
+      data: projectUpdated,
+    });
+
+    if (dataUpdate.success) {
+      console.log(project, projectUpdated);
+      setProject(projectUpdated);
+      setServices(servicesUpdated);
+      setMessage("Serviço removido com sucesso!");
+    }
+  }
+
   function toggleProjectForm() {
     setShowProjectForm(!showProjectForm);
   }
@@ -63,7 +85,6 @@ function Project() {
       {project.name ? (
         <div className={Styles.project_details}>
           <Container customClass="column">
-            {console.log(message)}
             {message && (
               <Message type={type} msg={message} handleAfterShow={setMessage} />
             )}
@@ -83,7 +104,7 @@ function Project() {
               setType={setType}
               setshowServiceForm={setShowServiceForm}
             />
-            <ListServices services={services} />
+            <ListServices services={services} removeService={removeService} />
           </Container>
         </div>
       ) : (
