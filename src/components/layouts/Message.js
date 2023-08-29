@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Styles from "./css/Message.module.css";
 
-function Message({ type, msg }) {
+function Message({ type, msg, handleAfterShow }) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     if (!msg) {
@@ -11,6 +11,9 @@ function Message({ type, msg }) {
     setVisible(true);
 
     const timer = setTimeout(() => {
+      if (typeof handleAfterShow === "function") {
+        handleAfterShow("");
+      }
       setVisible(false);
     }, 5000);
 

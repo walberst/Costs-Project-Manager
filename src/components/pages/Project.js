@@ -2,19 +2,21 @@ import Styles from "./css/Project.module.css";
 
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { BsPencil } from "react-icons/bs";
-import { FaTimesCircle } from "react-icons/fa";
 import ApiGet from "../requests/ApiGet";
 import ApiPatch from "../requests/ApiPatch";
 import Loading from "../layouts/Loading";
 import Container from "../layouts/Container";
-import ProjectForm from "../project/ProjectForm";
 import Message from "../layouts/Message";
+import DetailsProject from "./subSessions/project/DetailsProject";
+import AddServices from "./subSessions/project/AddServices";
+import ListServices from "./subSessions/project/ListServices";
 
 function Project() {
   const { id } = useParams();
   const [project, setProject] = useState([]);
+  const [services, setServices] = useState([]);
   const [showProjectForm, setShowProjectForm] = useState(false);
+  const [showServiceForm, setShowServiceForm] = useState(false);
   const [message, setMessage] = useState();
   const [type, setType] = useState();
 
@@ -24,6 +26,7 @@ function Project() {
       if (dataApiProject.data) {
         dataApiProject.data.budget = parseFloat(dataApiProject.data.budget);
         setProject(dataApiProject.data);
+        setServices(dataApiProject.data.services);
       }
     }
 
@@ -34,9 +37,14 @@ function Project() {
     setShowProjectForm(!showProjectForm);
   }
 
+  function toggleServiceForm() {
+    setShowServiceForm(!showServiceForm);
+  }
+
   async function editPost(project) {
+    setMessage("");
     if (project.budget < project.cost) {
-      setMessage("O custo do projeto não pode ser maior que o orçamento");
+      setMessage("O orçamento não pode ser menor que o custo do projeto!");
       setType("danger");
       return false;
     }
@@ -55,50 +63,27 @@ function Project() {
       {project.name ? (
         <div className={Styles.project_details}>
           <Container customClass="column">
-            {message && <Message type={type} msg={message} />}
-            <div className={Styles.details_container}>
-              <h1>Projeto: {project.name}</h1>
-              <button className={Styles.btn} onClick={toggleProjectForm}>
-                {!showProjectForm ? (
-                  <>
-                    <BsPencil /> Editar Projeto
-                  </>
-                ) : (
-                  <>
-                    <FaTimesCircle /> Cancelar
-                  </>
-                )}
-              </button>
-              {!showProjectForm ? (
-                <div className={Styles.project_info}>
-                  <p>
-                    <span>Categoria:</span> {project.category.name}
-                  </p>
-                  <p>
-                    <span>Orçamento Total:</span>{" "}
-                    {project.budget.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </p>
-                  <p>
-                    <span>Orçamento Utilizado:</span>{" "}
-                    {project.cost.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </p>
-                </div>
-              ) : (
-                <div className={Styles.project_info}>
-                  <ProjectForm
-                    handleSubmit={editPost}
-                    btnText="Concluir edição"
-                    projectData={project}
-                  />
-                </div>
-              )}
-            </div>
+            {console.log(message)}
+            {message && (
+              <Message type={type} msg={message} handleAfterShow={setMessage} />
+            )}
+            <DetailsProject
+              Styles={Styles}
+              handleOnClick={toggleProjectForm}
+              handleOnSubmit={editPost}
+              showProjectForm={showProjectForm}
+              project={project}
+            />
+            <AddServices
+              Styles={Styles}
+              handleOnClick={toggleServiceForm}
+              showServiceForm={showServiceForm}
+              project={project}
+              setMessage={setMessage}
+              setType={setType}
+              setshowServiceForm={setShowServiceForm}
+            />
+            <ListServices services={services} />
           </Container>
         </div>
       ) : (

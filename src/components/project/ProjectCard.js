@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import Styles from "./css/ProjectCard.module.css";
 
-import { BsEye, BsFillTrashFill } from "react-icons/bs";
+import { FaTrashAlt, FaEye } from "react-icons/fa";
+import FormatCurrency from "../utils/FormatCurrency";
 
 function ProjectCard({ id, name, budget, category, handleRemove }) {
   const remove = (e) => {
@@ -13,7 +14,7 @@ function ProjectCard({ id, name, budget, category, handleRemove }) {
     <div className={Styles.project_card}>
       <h4>{name}</h4>
       <p>
-        <span>Orçamento:</span> R${budget}
+        <span>Orçamento:</span> {FormatCurrency(budget)}
       </p>
       <p className={Styles.category_text}>
         <span
@@ -22,9 +23,9 @@ function ProjectCard({ id, name, budget, category, handleRemove }) {
         {category}
       </p>
       <div className={Styles.project_card_actions}>
-        <Link to={`/project/${id}`}>{<BsEye />} Visualizar</Link>
+        <Link to={`/project/${id}`}>{<FaEye />} Visualizar</Link>
         <button onClick={remove}>
-          <BsFillTrashFill /> Excluir
+          <FaTrashAlt /> Excluir
         </button>
       </div>
     </div>
